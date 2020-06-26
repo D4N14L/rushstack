@@ -109,11 +109,11 @@ export abstract class RSCTask<TTaskConfig extends IRSCTaskConfig> extends GulpTa
    *
    * @remarks
    * We load the tsconfig.json file, and follow its "extends" field until we reach the end of the chain.
-   * We expect the last extended file to be under an installed @microsoft/rush-stack-compiler-* package,
+   * We expect the last extended file to be under an installed \@microsoft/rush-stack-compiler-* package,
    * which determines which typescript/tslint/api-extractor versions should be invoked.
    *
    * @param tsconfigPath - The path of a tsconfig.json file to analyze
-   * @returns The absolute path of the folder containing "@microsoft/rush-stack-compiler-*" which should be used
+   * @returns The absolute path of the folder containing "\@microsoft/rush-stack-compiler-*" which should be used
    * to compile this tsconfig.json project
    */
   private _resolveRushStackCompilerFromTsconfig(
