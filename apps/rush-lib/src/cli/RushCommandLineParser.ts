@@ -42,6 +42,7 @@ import { Telemetry } from '../logic/Telemetry';
 import { RushGlobalFolder } from '../api/RushGlobalFolder';
 import { NodeJsCompatibility } from '../logic/NodeJsCompatibility';
 import { SetupAction } from './actions/SetupAction';
+import { PackageManagerAction } from './actions/PackageManagerAction';
 
 /**
  * Options for `RushCommandLineParser`.
@@ -169,6 +170,7 @@ export class RushCommandLineParser extends CommandLineParser {
       this.addAction(new InstallAction(this));
       this.addAction(new LinkAction(this));
       this.addAction(new ListAction(this));
+      this.addAction(new PackageManagerAction(this));
       this.addAction(new PublishAction(this));
       this.addAction(new PurgeAction(this));
       this.addAction(new ScanAction(this));

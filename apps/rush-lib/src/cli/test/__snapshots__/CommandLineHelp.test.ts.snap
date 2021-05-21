@@ -699,6 +699,30 @@ Optional arguments:
 "
 `;
 
+exports[`CommandLineHelp prints the help for each action: pm 1`] = `
+"usage: rush pm [-h] [-l] [--unsafe] ...
+
+Insert doc here
+
+Positional arguments:
+  \\"...\\"       The command to be passed to the package manager. To print a 
+              list of allowed commands, use the \\"--list\\" parameter
+
+Optional arguments:
+  -h, --help  Show this help message and exit.
+  -l, --list  List the supported commands that can be passed to the package 
+              manager
+  --unsafe    (UNSAFE!) Run the command against the package manager without 
+              validation performed by Rush. Rush uses an allow list approach 
+              to executing commands on the package manager in order to ensure 
+              the integrity of your install is not negatively affected. If 
+              this flag is provided, the command will be run on the package 
+              manager regardless of the allow list. Rush will also invalidate 
+              the current install, which will block running certain Rush 
+              commands until \`rush install\` or \`rush update\` completes.
+"
+`;
+
 exports[`CommandLineHelp prints the help for each action: publish 1`] = `
 "usage: rush publish [-h] [-a] [-b BRANCH] [-p] [--add-commit-details]
                     [--regenerate-changelogs] [-r REGISTRY] [-n TOKEN]
