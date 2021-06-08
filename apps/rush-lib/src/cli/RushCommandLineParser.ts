@@ -43,6 +43,7 @@ import { RushGlobalFolder } from '../api/RushGlobalFolder';
 import { NodeJsCompatibility } from '../logic/NodeJsCompatibility';
 import { SetupAction } from './actions/SetupAction';
 import { PackageManagerAction } from './actions/PackageManagerAction';
+import { EnvironmentConfiguration } from '../api/EnvironmentConfiguration';
 
 /**
  * Options for `RushCommandLineParser`.
@@ -250,6 +251,9 @@ export class RushCommandLineParser extends CommandLineParser {
 
     this._validateCommandLineConfigCommand(command);
 
+    const overrideAllowWarnings: boolean =
+      this.rushConfiguration && EnvironmentConfiguration.allowWarningsInSuccessfulBuild;
+
     switch (command.commandKind) {
       case RushConstants.bulkCommandKind:
         this.addAction(
@@ -271,7 +275,7 @@ export class RushCommandLineParser extends CommandLineParser {
             ignoreMissingScript: command.ignoreMissingScript || false,
             ignoreDependencyOrder: command.ignoreDependencyOrder || false,
             incremental: command.incremental || false,
-            allowWarningsInSuccessfulBuild: !!command.allowWarningsInSuccessfulBuild,
+            allowWarningsInSuccessfulBuild: overrideAllowWarnings || !!command.allowWarningsInSuccessfulBuild,
 
             watchForChanges: command.watchForChanges || false,
             disableBuildCache: command.disableBuildCache || false
