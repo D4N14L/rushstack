@@ -79,12 +79,16 @@ export class PackageManagerAction extends BaseRushAction {
     }
 
     // Then let's ensure that the provided command is supported
-    this.validate(commandArgs);
+    this._validateArgs(commandArgs);
 
     // Then we can run the command
     const packageManagerEnv: NodeJS.ProcessEnv = InstallHelpers.getPackageManagerEnvironment(
       this.rushConfiguration
     );
+    // Manually set the workspace path
+    packageManagerEnv['NPM_CONFIG_LOCKFILE_DIR'] = this.rushConfiguration.commonTempFolder;
+    packageManagerEnv['NPM_CONFIG_WORKSPACE_DIR'] = this.rushConfiguration.commonTempFolder;
+
     const packageManagerFilename: string = this.rushConfiguration.packageManagerToolFilename;
     this._terminal.writeLine(
       colors.green('Invoking package manager: ') +
@@ -94,21 +98,16 @@ export class PackageManagerAction extends BaseRushAction {
         os.EOL
     );
 
-    // Reroute the working dir through the 'root' symlink
-    const rootRelativePath: string = path.relative(this.rushConfiguration.rushJsonFolder, process.cwd());
-    const workingDir: string = path.join(this.rushConfiguration.commonTempFolder, 'root', rootRelativePath);
-    this._terminal.writeWarning(workingDir);
-
     Utilities.executeCommand({
       command: packageManagerFilename,
       args: commandArgs,
-      workingDirectory: workingDir,
+      workingDirectory: process.cwd(),
       environment: packageManagerEnv,
       suppressOutput: false
     });
   }
 
-  protected validate(args: string[]): void {
+  private _validateArgs(args: string[]): void {
     // Then let's validate that we support the action that they've provided
     const lastInstallFlag: LastInstallFlag = LastInstallFlagFactory.getCommonTempFlag(this.rushConfiguration);
     if (this._unsafe.value) {
