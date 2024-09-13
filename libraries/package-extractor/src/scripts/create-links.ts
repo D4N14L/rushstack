@@ -15,7 +15,16 @@ import type {
 
 const TARGET_ROOT_SCRIPT_RELATIVE_PATH: typeof TargetRootScriptRelativePathTemplateString =
   '{TARGET_ROOT_SCRIPT_RELATIVE_PATH}';
-const TARGET_ROOT_FOLDER: string = path.resolve(__dirname, TARGET_ROOT_SCRIPT_RELATIVE_PATH);
+
+// __dirname returns the real path of the parent folder of the script. In some cases, this is
+// not what we want. For example, when the script is executed via a symlink, we want the
+// symlink's folder instead. For this edge case, we can allow overriding the create links script
+// parent folder with the symlink's path.
+const CREATE_LINKS_SCRIPT_ROOT_FOLDER: string = process.env.CREATE_LINKS_SCRIPT_ROOT_FOLDER || __dirname;
+const TARGET_ROOT_FOLDER: string = path.resolve(
+  CREATE_LINKS_SCRIPT_ROOT_FOLDER,
+  TARGET_ROOT_SCRIPT_RELATIVE_PATH
+);
 
 // API borrowed from @rushstack/node-core-library, since this script avoids using any
 // NPM dependencies.
@@ -112,7 +121,7 @@ function main(): boolean {
     return false;
   }
 
-  const extractorMetadataPath: string = `${__dirname}/extractor-metadata.json`;
+  const extractorMetadataPath: string = `${CREATE_LINKS_SCRIPT_ROOT_FOLDER}/extractor-metadata.json`;
   if (!fs.existsSync(extractorMetadataPath)) {
     throw new Error('Input file not found: ' + extractorMetadataPath);
   }
