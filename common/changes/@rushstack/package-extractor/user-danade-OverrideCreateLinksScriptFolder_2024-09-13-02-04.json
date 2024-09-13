@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@rushstack/package-extractor",
+      "comment": "Allow overriding the parent folder path used by the create-links.js script when running in \"script\" mode",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@rushstack/package-extractor"
+}
