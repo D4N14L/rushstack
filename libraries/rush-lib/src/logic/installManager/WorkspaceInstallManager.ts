@@ -11,7 +11,8 @@ import {
   Async,
   type IDependenciesMetaTable,
   Path,
-  Sort
+  Sort,
+  AlreadyExistsBehavior
 } from '@rushstack/node-core-library';
 import { createHash } from 'crypto';
 
@@ -31,7 +32,6 @@ import { Utilities } from '../../utilities/Utilities';
 import { InstallHelpers } from './InstallHelpers';
 import type { CommonVersionsConfiguration } from '../../api/CommonVersionsConfiguration';
 import type { RepoStateFile } from '../RepoStateFile';
-import { EnvironmentConfiguration } from '../../api/EnvironmentConfiguration';
 import { ShrinkwrapFileFactory } from '../ShrinkwrapFileFactory';
 import { BaseProjectShrinkwrapFile } from '../base/BaseProjectShrinkwrapFile';
 import { type CustomTipId, type ICustomTipInfo, PNPM_CUSTOM_TIPS } from '../../api/CustomTipsConfiguration';
@@ -82,14 +82,6 @@ export class WorkspaceInstallManager extends BaseInstallManager {
     subspace: Subspace,
     shrinkwrapFile: (PnpmShrinkwrapFile & BaseShrinkwrapFile) | undefined
   ): Promise<{ shrinkwrapIsUpToDate: boolean; shrinkwrapWarnings: string[] }> {
-    // Block use of the RUSH_TEMP_FOLDER environment variable
-    if (EnvironmentConfiguration.rushTempFolderOverride !== undefined) {
-      throw new Error(
-        'The RUSH_TEMP_FOLDER environment variable is not compatible with workspace installs. If attempting ' +
-          'to move the PNPM store path, see the `RUSH_PNPM_STORE_PATH` environment variable.'
-      );
-    }
-
     const { fullUpgrade, allowShrinkwrapUpdates, variant } = this.options;
 
     // eslint-disable-next-line no-console
@@ -195,8 +187,16 @@ export class WorkspaceInstallManager extends BaseInstallManager {
     const expectedDependenciesMetaByProjectRelativePath: Record<string, IDependenciesMetaTable> = {};
     const commonTempFolder: string = subspace.getSubspaceTempFolderPath();
     const rushJsonFolder: string = this.rushConfiguration.rushJsonFolder;
-    // get the relative path from common temp folder to repo root folder
-    const relativeFromTempFolderToRootFolder: string = path.relative(commonTempFolder, rushJsonFolder);
+
+    // Ensure that the symlink to the root of the Rush repo is created in the common/temp folder. This is
+    // necessary to allow us to produce a lockfile with the correct paths, regardless of where the common/temp
+    // folder is located.
+    const rootSymlinkFolderPath: string = path.join(commonTempFolder, RushConstants.rushRootFolderName);
+    await FileSystem.createSymbolicLinkJunctionAsync({
+      newLinkPath: rootSymlinkFolderPath,
+      linkTargetPath: rushJsonFolder,
+      alreadyExistsBehavior: AlreadyExistsBehavior.Overwrite
+    });
 
     // Loop through the projects and add them to the workspace file. While we're at it, also validate that
     // referenced workspace projects are valid, and check if the shrinkwrap file is already up-to-date.
@@ -206,7 +206,7 @@ export class WorkspaceInstallManager extends BaseInstallManager {
         continue;
       }
       const packageJson: PackageJsonEditor = rushProject.packageJsonEditor;
-      workspaceFile.addPackage(rushProject.projectFolder);
+      workspaceFile.addPackage(path.join(rootSymlinkFolderPath, rushProject.projectRelativeFolder));
 
       for (const { name, version, dependencyType } of [
         ...packageJson.dependencyList,
@@ -332,7 +332,7 @@ export class WorkspaceInstallManager extends BaseInstallManager {
 
         // get the relative path from common temp folder to package folder, to align with the value in pnpm-lock.yaml
         const relativePathFromTempFolderToPackageFolder: string = Path.convertToSlashes(
-          `${relativeFromTempFolderToRootFolder}/${rushProject.projectRelativeFolder}`
+          `${RushConstants.rushRootFolderName}/${rushProject.projectRelativeFolder}`
         );
         expectedDependenciesMetaByProjectRelativePath[relativePathFromTempFolderToPackageFolder] =
           dependenciesMeta;

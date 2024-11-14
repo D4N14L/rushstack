@@ -1385,6 +1385,7 @@ export class RushConstants {
     static readonly rushPluginsConfigFilename: 'rush-plugins.json';
     static readonly rushProjectConfigFilename: 'rush-project.json';
     static readonly rushRecyclerFolderName: 'rush-recycler';
+    static readonly rushRootFolderName: 'rush-root';
     static readonly rushTempFolderName: 'temp';
     static readonly rushTempNpmScope: '@rush-temp';
     static readonly rushTempProjectsFolderName: 'projects';

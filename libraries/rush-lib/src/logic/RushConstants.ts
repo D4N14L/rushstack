@@ -67,6 +67,13 @@ export class RushConstants {
   public static readonly rushTempFolderName: 'temp' = 'temp';
 
   /**
+   * The folder name ("rush-root") under the common/temp folder that links to the root of the Rush project. Only
+   * used when in workspaces mode.
+   * Example: `C:\MyRepo\common\temp\rush-root`
+   */
+  public static readonly rushRootFolderName: 'rush-root' = 'rush-root';
+
+  /**
    * The folder name ("projects") where temporary projects will be stored.
    * Example: `C:\MyRepo\common\temp\projects`
    */

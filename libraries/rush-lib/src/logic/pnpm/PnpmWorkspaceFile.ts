@@ -16,7 +16,7 @@ const globEscape: (unescaped: string) => string = require('glob-escape'); // No 
  * Example:
  *  {
  *    "packages": [
- *      "../../apps/project1"
+ *      "rush-root/apps/project1"
  *    ]
  *  }
  */

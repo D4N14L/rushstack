@@ -81,6 +81,8 @@ export class AsyncRecycler {
 
     const excludeSet: Set<string> = new Set<string>((membersToExclude || []).map((x) => x.toUpperCase()));
 
+    Utilities.createFolderWithRetry(this.recyclerFolder);
+
     for (const dirent of FileSystem.readFolderItems(resolvedFolderPath)) {
       const normalizedMemberName: string = dirent.name.toUpperCase();
       if (!excludeSet.has(normalizedMemberName)) {
