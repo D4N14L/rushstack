@@ -12,7 +12,7 @@ module.exports = {
 
   overrides: [
     /**
-     * Override the parser from local-eslint-config. Since the config is coming
+     * Override the parser from @rushstack/eslint-config. Since the config is coming
      * from the workspace instead of the external NPM package, the versions of ESLint
      * and TypeScript that the config consumes will be resolved from the devDependencies
      * of the config instead of from the eslint-7-test package. Overriding the parser
