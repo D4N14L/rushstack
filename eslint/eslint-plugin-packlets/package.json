@@ -24,19 +24,19 @@
   },
   "dependencies": {
     "@rushstack/tree-pattern": "workspace:*",
-    "@typescript-eslint/utils": "~8.26.1"
+    "@typescript-eslint/utils": "~8.31.0"
   },
   "peerDependencies": {
-    "eslint": "^6.0.0 || ^7.0.0 || ^8.0.0"
+    "eslint": "^9.0.0"
   },
   "devDependencies": {
     "@rushstack/heft": "0.71.2",
-    "@types/eslint": "8.56.10",
+    "@types/eslint": "9.6.1",
     "@types/estree": "1.0.6",
-    "@typescript-eslint/parser": "~8.26.1",
-    "@typescript-eslint/typescript-estree": "~8.26.1",
+    "@typescript-eslint/parser": "~8.31.0",
+    "@typescript-eslint/typescript-estree": "~8.31.0",
     "decoupled-local-node-rig": "workspace:*",
-    "eslint": "~8.57.0",
+    "eslint": "~9.25.1",
     "typescript": "~5.8.2"
   }
 }

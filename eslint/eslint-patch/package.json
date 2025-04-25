@@ -31,10 +31,10 @@
   ],
   "devDependencies": {
     "@rushstack/heft": "0.71.2",
-    "@types/eslint": "8.56.10",
-    "@typescript-eslint/types": "~8.26.1",
+    "@types/eslint": "9.6.1",
+    "@typescript-eslint/types": "~8.31.0",
     "decoupled-local-node-rig": "workspace:*",
-    "eslint": "~8.57.0",
+    "eslint": "~9.25.1",
     "typescript": "~5.8.2"
   }
 }
