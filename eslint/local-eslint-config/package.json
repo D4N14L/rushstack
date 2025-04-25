@@ -14,7 +14,7 @@
     "decoupled-local-node-rig": "workspace:*"
   },
   "dependencies": {
-    "@rushstack/eslint-config": "workspace:*",
+    "@rushstack/eslint-config": "4.3.0",
     "@rushstack/eslint-patch": "workspace:*",
     "@typescript-eslint/parser": "~8.26.1",
     "eslint-plugin-deprecation": "2.0.0",
