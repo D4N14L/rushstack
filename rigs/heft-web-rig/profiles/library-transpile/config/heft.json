@@ -1,0 +1,77 @@
+/**
+ * Defines configuration used by core Heft.
+ */
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/heft/v0/heft.schema.json",
+
+  "extends": "../../library/config/heft.json",
+
+  "phasesByName": {
+    "build": {
+      "tasksByName": {
+        "transpile": {
+          "taskDependencies": [],
+          "taskPlugin": {
+            "pluginPackage": "@rushstack/heft-isolated-typescript-transpile-plugin",
+            "options": {
+              "emitKinds": [
+                {
+                  "outDir": "lib",
+                  "formatOverride": "ESNext",
+                  "targetOverride": "ES2017"
+                },
+                {
+                  "outDir": "lib-commonjs",
+                  "formatOverride": "CommonJS",
+                  "targetOverride": "ES5"
+                }
+              ]
+            }
+          }
+        },
+
+        "copy-static-assets": {
+          "taskPlugin": {
+            "pluginPackage": "@rushstack/heft",
+            "pluginName": "copy-files-plugin",
+            "options": {
+              "copyOperations": [
+                {
+                  "sourcePath": "src",
+                  "destinationFolders": ["lib", "lib-commonjs"],
+                  "fileExtensions": [
+                    ".aac",
+                    ".css",
+                    ".eot",
+                    ".gif",
+                    ".jpeg",
+                    ".jpg",
+                    ".json",
+                    ".m4a",
+                    ".mp3",
+                    ".mp4",
+                    ".oga",
+                    ".otf",
+                    ".png",
+                    ".scss",
+                    ".svg",
+                    ".ttf",
+                    ".wav",
+                    ".webm",
+                    ".webp",
+                    ".woff",
+                    ".woff2"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+
+        "webpack": {
+          "taskDependencies": ["transpile", "copy-static-assets"]
+        }
+      }
+    }
+  }
+}

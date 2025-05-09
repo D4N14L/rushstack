@@ -681,6 +681,12 @@
       "shouldPublish": false
     },
     {
+      "packageName": "heft-node-rig-transpile-tutorial",
+      "projectFolder": "build-tests-samples/heft-node-rig-transpile-tutorial",
+      "reviewCategory": "tests",
+      "shouldPublish": false
+    },
+    {
       "packageName": "heft-node-rig-tutorial",
       "projectFolder": "build-tests-samples/heft-node-rig-tutorial",
       "reviewCategory": "tests",
@@ -717,8 +723,20 @@
       "shouldPublish": false
     },
     {
+      "packageName": "heft-web-rig-app-transpile-tutorial",
+      "projectFolder": "build-tests-samples/heft-web-rig-app-transpile-tutorial",
+      "reviewCategory": "tests",
+      "shouldPublish": false
+    },
+    {
       "packageName": "heft-web-rig-app-tutorial",
       "projectFolder": "build-tests-samples/heft-web-rig-app-tutorial",
+      "reviewCategory": "tests",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "heft-web-rig-library-transpile-tutorial",
+      "projectFolder": "build-tests-samples/heft-web-rig-library-transpile-tutorial",
       "reviewCategory": "tests",
       "shouldPublish": false
     },
@@ -893,12 +911,6 @@
       "reviewCategory": "tests",
       "shouldPublish": false,
       "decoupledLocalDependencies": ["@rushstack/eslint-config"]
-    },
-    {
-      "packageName": "heft-web-rig-library-test",
-      "projectFolder": "build-tests/heft-web-rig-library-test",
-      "reviewCategory": "tests",
-      "shouldPublish": false
     },
     {
       "packageName": "heft-webpack4-everything-test",

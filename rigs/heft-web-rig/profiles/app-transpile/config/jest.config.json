@@ -1,0 +1,3 @@
+{
+  "extends": "../../app/config/jest.config.json"
+}

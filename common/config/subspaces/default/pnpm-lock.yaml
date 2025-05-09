@@ -473,6 +473,24 @@ importers:
         specifier: ~5.8.2
         version: 5.8.2
 
+  ../../../build-tests-samples/heft-node-rig-transpile-tutorial:
+    devDependencies:
+      '@rushstack/heft':
+        specifier: workspace:*
+        version: link:../../apps/heft
+      '@rushstack/heft-node-rig':
+        specifier: workspace:*
+        version: link:../../rigs/heft-node-rig
+      '@types/heft-jest':
+        specifier: 1.0.1
+        version: 1.0.1
+      '@types/node':
+        specifier: 20.17.19
+        version: 20.17.19
+      local-eslint-config:
+        specifier: workspace:*
+        version: link:../../eslint/local-eslint-config
+
   ../../../build-tests-samples/heft-node-rig-tutorial:
     devDependencies:
       '@rushstack/heft':
@@ -718,11 +736,76 @@ importers:
         specifier: ~4.47.0
         version: 4.47.0
 
+  ../../../build-tests-samples/heft-web-rig-app-transpile-tutorial:
+    dependencies:
+      heft-web-rig-library-tutorial:
+        specifier: workspace:*
+        version: link:../heft-web-rig-library-tutorial
+      react:
+        specifier: ~17.0.2
+        version: 17.0.2
+      react-dom:
+        specifier: ~17.0.2
+        version: 17.0.2(react@17.0.2)
+      tslib:
+        specifier: ~2.3.1
+        version: 2.3.1
+    devDependencies:
+      '@rushstack/heft':
+        specifier: workspace:*
+        version: link:../../apps/heft
+      '@rushstack/heft-web-rig':
+        specifier: workspace:*
+        version: link:../../rigs/heft-web-rig
+      '@types/react':
+        specifier: 17.0.74
+        version: 17.0.74
+      '@types/react-dom':
+        specifier: 17.0.25
+        version: 17.0.25
+      '@types/webpack-env':
+        specifier: 1.18.8
+        version: 1.18.8
+      local-eslint-config:
+        specifier: workspace:*
+        version: link:../../eslint/local-eslint-config
+
   ../../../build-tests-samples/heft-web-rig-app-tutorial:
     dependencies:
       heft-web-rig-library-tutorial:
         specifier: workspace:*
         version: link:../heft-web-rig-library-tutorial
+      react:
+        specifier: ~17.0.2
+        version: 17.0.2
+      react-dom:
+        specifier: ~17.0.2
+        version: 17.0.2(react@17.0.2)
+      tslib:
+        specifier: ~2.3.1
+        version: 2.3.1
+    devDependencies:
+      '@rushstack/heft':
+        specifier: workspace:*
+        version: link:../../apps/heft
+      '@rushstack/heft-web-rig':
+        specifier: workspace:*
+        version: link:../../rigs/heft-web-rig
+      '@types/react':
+        specifier: 17.0.74
+        version: 17.0.74
+      '@types/react-dom':
+        specifier: 17.0.25
+        version: 17.0.25
+      '@types/webpack-env':
+        specifier: 1.18.8
+        version: 1.18.8
+      local-eslint-config:
+        specifier: workspace:*
+        version: link:../../eslint/local-eslint-config
+
+  ../../../build-tests-samples/heft-web-rig-library-transpile-tutorial:
+    dependencies:
       react:
         specifier: ~17.0.2
         version: 17.0.2
@@ -1895,15 +1978,6 @@ importers:
         specifier: ~4.9.5
         version: 4.9.5
 
-  ../../../build-tests/heft-web-rig-library-test:
-    devDependencies:
-      '@rushstack/heft':
-        specifier: workspace:*
-        version: link:../../apps/heft
-      '@rushstack/heft-web-rig':
-        specifier: workspace:*
-        version: link:../../rigs/heft-web-rig
-
   ../../../build-tests/heft-webpack4-everything-test:
     devDependencies:
       '@rushstack/heft':
@@ -2635,9 +2709,9 @@ importers:
       '@rushstack/heft-typescript-plugin':
         specifier: workspace:*
         version: link:../heft-typescript-plugin
-      local-node-rig:
+      decoupled-local-node-rig:
         specifier: workspace:*
-        version: link:../../rigs/local-node-rig
+        version: link:../../rigs/decoupled-local-node-rig
 
   ../../../heft-plugins/heft-jest-plugin:
     dependencies:
@@ -3078,9 +3152,9 @@ importers:
       '@rushstack/heft':
         specifier: workspace:*
         version: link:../../apps/heft
-      local-node-rig:
+      decoupled-local-node-rig:
         specifier: workspace:*
-        version: link:../../rigs/local-node-rig
+        version: link:../../rigs/decoupled-local-node-rig
 
   ../../../libraries/module-minifier:
     dependencies:
@@ -3784,6 +3858,9 @@ importers:
       '@rushstack/heft-api-extractor-plugin':
         specifier: workspace:*
         version: link:../../heft-plugins/heft-api-extractor-plugin
+      '@rushstack/heft-isolated-typescript-transpile-plugin':
+        specifier: workspace:*
+        version: link:../../heft-plugins/heft-isolated-typescript-transpile-plugin
       '@rushstack/heft-jest-plugin':
         specifier: workspace:*
         version: link:../../heft-plugins/heft-jest-plugin
@@ -3821,6 +3898,9 @@ importers:
       '@rushstack/heft-api-extractor-plugin':
         specifier: workspace:*
         version: link:../../heft-plugins/heft-api-extractor-plugin
+      '@rushstack/heft-isolated-typescript-transpile-plugin':
+        specifier: workspace:*
+        version: link:../../heft-plugins/heft-isolated-typescript-transpile-plugin
       '@rushstack/heft-jest-plugin':
         specifier: workspace:*
         version: link:../../heft-plugins/heft-jest-plugin
