@@ -176,16 +176,7 @@ class CpuProfileSummarizerCommandLineParser extends CommandLineParser {
   }
 }
 
-process.exitCode = 1;
 const parser: CpuProfileSummarizerCommandLineParser = new CpuProfileSummarizerCommandLineParser();
-
-parser
-  .executeAsync()
-  .then((success: boolean) => {
-    if (success) {
-      process.exitCode = 0;
-    }
-  })
-  .catch((error: Error) => {
-    console.error(error);
-  });
+parser.executeAsync().catch((error: Error) => {
+  console.error(error);
+});

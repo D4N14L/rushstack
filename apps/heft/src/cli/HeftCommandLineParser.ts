@@ -98,7 +98,7 @@ export class HeftCommandLineParser extends CommandLineParser {
     this._metricsCollector = new MetricsCollector();
   }
 
-  public async executeAsync(args?: string[]): Promise<boolean> {
+  public override async executeAsync(args?: string[]): Promise<boolean> {
     // Defensively set the exit code to 1 so if the tool crashes for whatever reason,
     // we'll have a nonzero exit code.
     process.exitCode = 1;
@@ -200,9 +200,6 @@ export class HeftCommandLineParser extends CommandLineParser {
     } catch (e) {
       await this._reportErrorAndSetExitCodeAsync(e as Error);
     }
-
-    // If we make it here, things are fine and reset the exit code back to 0
-    process.exitCode = 0;
   }
 
   private _normalizeCwd(): void {

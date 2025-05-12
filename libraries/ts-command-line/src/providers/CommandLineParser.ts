@@ -152,8 +152,13 @@ export abstract class CommandLineParser extends CommandLineParameterProvider {
       this._tabCompleteActionWasAdded = true;
     }
 
+    // Defensively set the exit code to 1 so if the tool crashes for whatever reason,
+    // we'll have a nonzero exit code.
+    process.exitCode = 1;
+
     try {
       await this.executeWithoutErrorHandlingAsync(args);
+      process.exitCode = 0;
       return true;
     } catch (err) {
       if (err instanceof CommandLineParserExitError) {
@@ -166,12 +171,8 @@ export abstract class CommandLineParser extends CommandLineParameterProvider {
         if (!process.exitCode) {
           process.exitCode = err.exitCode;
         }
-      } else if (TypeUuid.isInstanceOf(err, uuidAlreadyReportedError)) {
-        //  AlreadyReportedError
-        if (!process.exitCode) {
-          process.exitCode = 1;
-        }
-      } else {
+      } else if (!TypeUuid.isInstanceOf(err, uuidAlreadyReportedError)) {
+        // Log out all errors that are not AlreadyReportedError
         let message: string = ((err as Error).message || 'An unknown error occurred').trim();
 
         // If the message doesn't already start with "Error:" then add a prefix
@@ -183,10 +184,9 @@ export abstract class CommandLineParser extends CommandLineParameterProvider {
         console.error();
         // eslint-disable-next-line no-console
         console.error(Colorize.red(message));
-
-        if (!process.exitCode) {
-          process.exitCode = 1;
-        }
+      } else if (!process.exitCode) {
+        // If for some reason the exit code has been reset to 0, set it to 1
+        process.exitCode = 1;
       }
 
       return false;

@@ -4,7 +4,7 @@
 import * as os from 'os';
 
 import { CommandLineParser, type CommandLineFlagParameter } from '@rushstack/ts-command-line';
-import { InternalError } from '@rushstack/node-core-library';
+import { AlreadyReportedError, InternalError } from '@rushstack/node-core-library';
 import { Colorize } from '@rushstack/terminal';
 
 import { RunAction } from './RunAction';
@@ -37,16 +37,17 @@ export class ApiExtractorCommandLine extends CommandLineParser {
       InternalError.breakInDebugger = true;
     }
 
-    process.exitCode = 1;
     try {
       await super.onExecuteAsync();
-      process.exitCode = 0;
     } catch (error) {
-      if (this._debugParameter.value) {
+      if (error instanceof AlreadyReportedError) {
+        throw error;
+      } else if (this._debugParameter.value) {
         console.error(os.EOL + error.stack);
       } else {
         console.error(os.EOL + Colorize.red('ERROR: ' + error.message.trim()));
       }
+      throw new AlreadyReportedError();
     }
   }
 
